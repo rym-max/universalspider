@@ -1,0 +1,13 @@
+{
+  "start_requests":
+  {
+    "kwargs":
+    {
+      "url": "http://search.people.com.cn/cnpeople/peoplesearch.do",
+      "q_params": "keyword",
+      "language": "CHINESE",
+      "code": "gbk"
+
+    }
+  }
+}
