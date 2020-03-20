@@ -26,7 +26,7 @@ import time
 import datetime
 import json
 from os.path import realpath, dirname
-from .utils import get_keyword, get_date_withzone, make_request, set_dates,back_core,V2_make_request
+from .utils import get_keyword, get_date_withzone, make_request, set_dates,back_core,V2_make_request_htm
 
 #日后再考虑既有page又有keywords
 #这部分需重新考虑，完成后删除这条注释
@@ -479,7 +479,7 @@ def V2_URLONE(dt,timezone,logger,**kwargs):
 def V2_URLTWO(dt,timezone,logger,**kwargs):
     """
     :param kwargs:
-    prefix:网址前缀(有？)
+    prefix:网址前缀(有"?")
     params:查询的关键字keyword,页码page(分页功能暂未实现)
     language:语言确定拼接的关键词
     url_formatter:正则表达式
@@ -490,16 +490,16 @@ def V2_URLTWO(dt,timezone,logger,**kwargs):
     prefix_url = kwargs.get("prefix", " ")
     params = kwargs.get("q_params", " ")
     url_formatter = kwargs.get("formatter"," ")
-    logger.debug(prefix_url + params["keyword"])
+    logger.debug(prefix_url + params.get("keyword"," "))
 
-    language = kwargs.get("langu")
+    language = kwargs.get("langu"," ")
     coreword = back_core(language)  # 语言确定返回关键词的列表
     start_url = []
     for x in coreword:
-        start_url.append(prefix_url + params["keyword"] + x)
+        start_url.append(prefix_url + params.get("keyword"," ") + x)
     detail_url = []
     for url in start_url:
-        status_code, js_url = V2_make_request(url,url_formatter,logger)
+        status_code, js_url = V2_make_request_htm(url,url_formatter,logger)
         logger.debug("status&&json_url" + str(status_code) + str(js_url))
         detail_url.append((js_url))
         # js_url是一个json正则匹配出来的url列表
@@ -567,6 +567,18 @@ def get_start_urls(dt,timezone,case,logger,**kwargs):
         # 通过获取当前月份获得start_url
         try:
             return URLTWELVE(dt,timezone,logger,**kwargs)
+        except Exception as e:
+            logger.warn(e)
+    elif case==21:
+        #get方法的获取html文本
+        try:
+            return V2_URLONE(dt,timezone,logger,**kwargs)
+        except Exception as e:
+            logger.warn(e)
+    elif case==22:
+        # get方法获取json
+        try:
+            return V2_URLTWO(dt,timezone,logger,**kwargs)
         except Exception as e:
             logger.warn(e)
     else:
@@ -666,7 +678,82 @@ def REQUESTSONE(dt,logger,**kwargs):
         logger.error(e)
         return [],{}
     else:
-        return result_li,result_di        
+        return result_li,result_di
+
+def REQUESTTWO(dt,logger,**kwargs):
+    # post html
+    # {startrequests:
+    #      {
+    #          "kwargs":{
+    #              "url":[https:\\,...] 暂时只有一个url，但为列表形式
+    #                 "q_params":["keyword1",...]暂时只有一个
+    #                 "langugage":"CHINESE"
+    #                     "code":"gbk"
+    #          }
+    #      }
+    #  }
+    # 通过kwargs生成start_urls列表和
+    # {"url1":[{"keyword":"一带一路"},"keyword":"新冠肺炎",...]}
+    # 列表每一个url为键，post的键值对组成的列表为值的form_list_dic字典
+    po_url = kwargs.get("url"," ")
+    po_param = kwargs.get("q_params"," ")
+    langu = kwargs.get("language"," ")
+    lang_code = kwargs.get("code"," ")
+    # 自带的start_requests 不一定编码方式要显式申明 先放着
+    po_dic = {}
+    corelist = back_core(langu)
+    logger.debug(len(po_url))
+    try:
+        for url in po_url:
+            urlword = []
+            for word in corelist:
+                urlword.append({po_param:word}) #加不加.encode(lang_code)
+            po_dic[url] = urlword
+    except Exception as e:
+        logger.warn(e)
+    return po_url,po_dic
+
+
+def REQUESTThree(dt, logger, **kwargs):
+    # post json
+    # 通过post返回json，解析json内容，正则表达式匹配返回url_list
+    # {startrequests:
+    #      {
+    #          "kwargs":{
+    #              "url":[https:\\,...] 暂时只有一个url，查询端口只有一个
+    #                 "q_params":["keyword1",...] 索引字段只有一个，暂时只有一个
+    #                 "langugage":"CHINESE"
+    #                     "code":"gbk"
+    #                  "url_formatter":正则表达式，跟进详情页的格式只有一个，暂时只有一个
+    #          }
+    #      }
+    #  }
+    # 表单:{q_params:corelist中的词}
+    # 暂时fir_result:
+    # [('url', 'https://politics.gmw.cn/2020-03/14/content_33649378.htm'),...]
+
+    po_url = kwargs.get("url")
+    po_param = kwargs.get("q_params"," ")
+    langu = kwargs.get("language"," ")
+    lang_code = kwargs.get("code"," ")
+    formatter = kwargs.get("url_formatter"," ")
+    patt = re.compile(formatter,flag=re.IGNORECASE)
+    corelist = back_core(langu)
+    formlist = []
+    for x in corelist:
+        formlist.append({po_param:x.encode(lang_code)})
+    detail_url = []
+    for call in formlist:
+        respon = requests.post(po_url,data=call)
+        respon.encoding(lang_code)
+        fir_result = patt.findall(respon.text)
+        for i in fir_result:
+            detail_url.append(i[1])
+    return detail_url,{}
+
+
+
+
 
 def get_formdata(form_dict={},**kwargs):
     for k,v in form_dict.items():
@@ -675,7 +762,7 @@ def get_formdata(form_dict={},**kwargs):
         default_logger.debug("结果是啥<<<<"+str(form_dict[k]))
         
     return form_dict
-        
+
 
 
 
@@ -690,6 +777,18 @@ def get_start_requests_params(dt,case,logger=default_logger,**kwargs):
             return REQUESTSONE(dt,logger,**kwargs)
         except Exception as e:
             logger.warn("case 1 出错")
+            logger.warn(e)
+    elif case==2:
+        try:
+            return REQUESTTWO(dt,logger,**kwargs)
+        except Exception as e:
+            logger.warn("case 2 出错")
+            logger.warn(e)
+    elif case ==3:
+        try:
+            return REQUESTThree(dt,logger,**kwargs)
+        except Exception as e:
+            logger.warn("case 3 出错")
             logger.warn(e)
 
     else:

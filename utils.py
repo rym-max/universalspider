@@ -15,7 +15,7 @@ import re
 from collections import defaultdict
 from csv import reader
 from os.path import dirname, realpath
-from .configs.V2_corewords import corewords
+from .configs.corewords import corewords
 import os
 import pickle
 import time

@@ -36,14 +36,14 @@ CONFIG_DB	="Vip_TongjiEU"
 CONFIG_PORT	=1433
 CONFIG_PSWD ="tongji1907"
 CONFIG_TABLE=""
-CONFIG_USER	="spider_account"
+CONFIG_USER	="spider_account_"
 
 DATA_DB		="Vip_TongjiEU"
 DATA_HOST	="localhost"
 DATA_PORT	=1433
 DATA_TABLE  ="ERMS_All"
 DATA_PSWD	="tongji1907"
-DATA_USER	="spider_account"
+DATA_USER	="spider_account_"
 
 
 SPIDER_CONFIG_TABLE ="SPIDER_Config"
