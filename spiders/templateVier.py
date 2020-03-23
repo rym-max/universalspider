@@ -87,7 +87,7 @@ class TemplatevierSpider(CrawlSpider):
             custom_settings = json.loads(kwargs.get("CUSTOM_SETTINGS","{}"))
         except:
             self.logger.warn("CUSTOM_SETTINGS string type wrong, please check if json!")
-            custom_settings ={}
+            custom_settings = {}
         settings = project_settings
         project_settings.update(custom_settings)
         self.logger.debug("<<<spider config:\r\n"+str(settings))
@@ -139,6 +139,7 @@ class TemplatevierSpider(CrawlSpider):
             self.post_type = start_request_params.get("p_type",1)
             self.start_urls, self.form_list_dic = get_start_requests_params(self.last_crawl_date,
                 Case,**Kwargs)
+            self.logger.info(self.start_urls)
         else:
             self.start_urls = []
             self.form_list_dic = {}
@@ -233,14 +234,15 @@ class TemplatevierSpider(CrawlSpider):
         return request
     
     def start_requests(self):
-        # 分两种，一个html返回url与formdata，一个直接返回详情页url，发起request
+        # 分两种，一个post 返回html  剩下的交给linkExtractor和Rule
+        # 一个json直接返回详情页url，发起get的request
         if self.post_type==1:
             for url in self.start_urls:
                 for form in self.form_list_dic.get(url,[]):
                     yield scrapy.FormRequest(url=url,formdata=form)
         elif self.post_type==2:
             for url in self.start_urls:
-                yield scrapy.Request(url=url,callback = "parse_item")
+                yield scrapy.Request(url=url,callback = self.parse_item)
 
 
 

@@ -8,6 +8,7 @@
 @Contact :   hzxstarcloud@hotmail.com
 @Desc    :   None
 '''
+import copy
 
 '''
 Update
@@ -26,7 +27,7 @@ import time
 import datetime
 import json
 from os.path import realpath, dirname
-from .utils import get_keyword, get_date_withzone, make_request, set_dates,back_core,V2_make_request_htm
+from .utils import get_keyword, get_date_withzone, make_request, set_dates,back_core,V2_make_request_htm,V2_make_request_json
 
 #日后再考虑既有page又有keywords
 #这部分需重新考虑，完成后删除这条注释
@@ -721,7 +722,7 @@ def REQUESTThree(dt, logger, **kwargs):
     #      {
     #          "kwargs":{
     #              "url":[https:\\,...] 暂时只有一个url，查询端口只有一个
-    #                 "q_params":["keyword1",...] 索引字段只有一个，暂时只有一个
+    #                 "q_params":["keyword1",...] 索引字段只有一个，暂时只有一个，不行！
     #                 "langugage":"CHINESE"
     #                     "code":"gbk"
     #                  "url_formatter":正则表达式，跟进详情页的格式只有一个，暂时只有一个
@@ -732,27 +733,54 @@ def REQUESTThree(dt, logger, **kwargs):
     # 暂时fir_result:
     # [('url', 'https://politics.gmw.cn/2020-03/14/content_33649378.htm'),...]
 
-    po_url = kwargs.get("url")
-    po_param = kwargs.get("q_params"," ")
-    langu = kwargs.get("language"," ")
-    lang_code = kwargs.get("code"," ")
-    formatter = kwargs.get("url_formatter"," ")
-    patt = re.compile(formatter,flag=re.IGNORECASE)
+    be_url = kwargs.get("url","")  #开始的url
+    u_headers = kwargs.get("headers","") #不/需要变更的headers，
+    core_in_url = kwargs.get("core_in_url","")  #关键词是否在url中的标志位
+    final_param = kwargs.get("final_params","")  #formdata中无变化参数，字典形式{}
+    key_param = kwargs.get("keyword","") #formdata中关键词键,如果core在url中，则无此项
+    page_num = kwargs.get("page_num",)  #翻多少页的数字
+    page_params = kwargs.get("page_params","")  #formdata翻页功能的参数
+    langu = kwargs.get("language","")      #根据语言筛选关键词
+    lang_code = kwargs.get("code","")   #第二种情况的关键词value的编码方式
+    formatter = kwargs.get("formatter","") #筛选详情页url的正则
+    patt = re.compile(formatter,re.IGNORECASE)
     corelist = back_core(langu)
-    formlist = []
-    for x in corelist:
-        formlist.append({po_param:x.encode(lang_code)})
-    detail_url = []
-    for call in formlist:
-        respon = requests.post(po_url,data=call)
-        respon.encoding(lang_code)
-        fir_result = patt.findall(respon.text)
-        for i in fir_result:
-            detail_url.append(i[1])
-    return detail_url,{}
+    logger.info("输出一大堆参数<<<<<<<,首先kwargs")
+    logger.info(str(kwargs))
 
+    if core_in_url:
+        # 若关键词在request url中，formdata只有翻页功能
+        urllist = []  #request url
+        total_url =[] #返回的start_urls列表
+        for x in corelist:
+            urllist.append(be_url+key_param+"="+x)  #拼接关键词发起post的url
+        fdtotallist = []  #formdata{}
+        for i in range(1,page_num+1):
+            temp = copy.deepcopy(final_param)  #深拷贝
+            temp.update({page_params:i})
+            fdtotallist.append(temp)
+        try:
+            for call in urllist:
+                temp = V2_make_request_json(call,fdtotallist,u_headers,patt,lang_code)
+                total_url.extend(temp)
+        except Exception as e:
+            logger.warn(e)
+        return total_url,{}
 
-
+    else:
+        # 关键词在formdata中，表单同时有关键词和翻页
+        # 此时url只有一个
+        total_url = []; fdtotallist = []  #formdata{}
+        for word in corelist:
+            for num in range(1,page_num+1):
+                temp = final_param
+                temp.update({page_params:num,key_param:word})
+                fdtotallist.append(temp)
+        try:
+            total_url.extend(V2_make_request_json(be_url,fdtotallist,u_headers,patt,lang_code))
+        except Exception as e:
+            logger.warn(e)
+        return total_url,{}
 
 
 def get_formdata(form_dict={},**kwargs):

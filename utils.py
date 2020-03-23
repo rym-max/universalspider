@@ -650,7 +650,8 @@ def get_spider_configV4(name,logger=default_logger):
         logger.error("<<<[connection error V4 in get config]:%s"%str(e))
         return {}
 
-    sql_string = r"SELECT ConfigId FROM " + SPIDER_ITEM_TABLE +" WHERE name=%(name)s"
+# 什么鬼  这里有问题吧  name应该大写
+    sql_string = r"SELECT ConfigId FROM " + SPIDER_ITEM_TABLE +" WHERE Name=%(name)s"
     item = {
         "name":name
     }
@@ -956,6 +957,29 @@ def V2_make_request_htm(url,formatter,logger):
     for i in fir_result:
         detail_url.append(i[1])
     return detail_url
+
+
+def V2_make_request_json(url,datalist,header,formatter,langu_code):
+    detail_url =  []
+    if header:
+        for send in datalist:
+            respon = requests.post(url, data=send, headers=header)
+            # logging.debug("response的text"+str(respon.text))
+            respon.encoding = langu_code
+            fir_result = formatter.findall(respon.text)
+            # 将正则匹配得详情页列表整合返回，纯详情页url构成的列表
+            # logging.debug("正则匹配后的列表"+str(fir_result))
+            detail_url.extend(fir_result)
+        return detail_url
+    else:
+        for send in datalist:
+            respon = requests.post(url, data=send)
+            respon.encoding = langu_code
+            fir_result = formatter.findall(respon.text)
+            detail_url.extend(fir_result)
+        return detail_url
+
+
 
 
 
