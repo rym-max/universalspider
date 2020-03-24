@@ -465,15 +465,14 @@ def V2_URLONE(dt,timezone,logger,**kwargs):
     #返回含大量详情页url的url
 
     logger.debug("i'm here V2_URLONE")
-    prefix_url = kwargs.get("prefix"," ")
+    prefix_url = kwargs.get("prefix"," ") #注意加?
     params = kwargs.get("q_params"," ")
-    logger.debug(prefix_url+params["keyword"])
-
     language = kwargs.get("langu")
+
     coreword = back_core(language)  #语言确定返回关键词的列表
     start_url=[]
     for x in coreword:
-        start_url.append(prefix_url+params["keyword"]+x)
+        start_url.append(prefix_url+params.get("keyword","")+x) #注意加=
     return start_url
 
 
@@ -730,8 +729,6 @@ def REQUESTThree(dt, logger, **kwargs):
     #      }
     #  }
     # 表单:{q_params:corelist中的词}
-    # 暂时fir_result:
-    # [('url', 'https://politics.gmw.cn/2020-03/14/content_33649378.htm'),...]
 
     be_url = kwargs.get("url","")  #开始的url
     u_headers = kwargs.get("headers","") #不/需要变更的headers，
@@ -769,7 +766,7 @@ def REQUESTThree(dt, logger, **kwargs):
 
     else:
         # 关键词在formdata中，表单同时有关键词和翻页
-        # 此时url只有一个
+        # 此时be_url只有一个
         total_url = []; fdtotallist = []  #formdata{}
         for word in corelist:
             for num in range(1,page_num+1):

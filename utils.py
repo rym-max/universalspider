@@ -16,6 +16,7 @@ from collections import defaultdict
 from csv import reader
 from os.path import dirname, realpath
 from .configs.corewords import corewords
+from .configs.V2_corewords import V2_corewords
 import os
 import pickle
 import time
@@ -932,7 +933,7 @@ def back_core(language):
     :param language: 语言
     :return: 关键词的列表
     """
-    word_set = corewords.get(language,"")
+    word_set = V2_corewords.get(language,"")
     word_list = list(word_set)
     return word_list
 

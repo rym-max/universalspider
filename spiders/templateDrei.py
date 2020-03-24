@@ -128,6 +128,7 @@ class TemplatedreiSpider(CrawlSpider):
             Kwargs = start_urls_params.get("Kwargs",{})
             self.start_urls = get_start_urls(self.last_crawl_date,self.timezone,
                 Case,self.logger,**Kwargs)
+            self.logger.debug("start_urls<<<<<<<"+str(self.start_urls))
         else:
             self.start_urls = []
         self.logger.info("START_URLS INIT Success!")
