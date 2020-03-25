@@ -459,26 +459,26 @@ def URLTWELVE(dt,timezone,logger,**kwargs):
 
 
 def V2_URLONE(dt,timezone,logger,**kwargs):
+    # get html
     # 例：http: // search.gmw.cn / service / search.do?q=   +     "一带一路"
-    #kwargs:"Kwargs":{"prefix": ,"q_params": ,"langu": }
+    #kwargs:"Kwargs":{"prefix": ,"q_params": ,"langu": []}
     #here  the  prefix+keword is one url
     #返回含大量详情页url的url
 
     logger.debug("i'm here V2_URLONE")
     prefix_url = kwargs.get("prefix"," ") #注意加?
     params = kwargs.get("q_params"," ")
+    # langu是一个列表
     language = kwargs.get("langu")
     # German和Engish部分网址url需要空格替换符，默认为空，没有用到json可以不写
     blank = kwargs.get("blankreplace","")
     # 某些url在关键词之后还有一些固定字段，默认为空，没有用到json可以不写
-    # final_param = kwargs.get("final_param","")
-
-
+    final_param = kwargs.get("final_param","")
     coreword = back_core(language,blank)  #语言确定返回关键词的列表
     start_url=[]
     for x in coreword:
         # "https://www.boell.de/en/search/contents?","search_api_fulltext=",关键词
-        start_url.append(prefix_url+params.get("keyword","")+x) #注意加=
+        start_url.append(prefix_url+params.get("keyword","")+x+final_param) #注意加=
     return start_url
 
 
@@ -486,6 +486,7 @@ def V2_URLONE(dt,timezone,logger,**kwargs):
 
 def V2_URLTWO(dt,timezone,logger,**kwargs):
     """
+    get json
     :param kwargs:
     prefix:网址前缀(有"?")
     params:查询的关键字keyword,页码page(分页功能暂未实现)
@@ -499,12 +500,13 @@ def V2_URLTWO(dt,timezone,logger,**kwargs):
     params = kwargs.get("q_params", " ")
     url_formatter = kwargs.get("formatter"," ")
     logger.debug(prefix_url + params.get("keyword"," "))
-
+    blank = kwargs.get("blankreplace","")
+    final_param = kwargs.get("final_param","")
     language = kwargs.get("langu"," ")
-    coreword = back_core(language)  # 语言确定返回关键词的列表
+    coreword = back_core(language,blank)  # 语言确定返回关键词的列表
     start_url = []
     for x in coreword:
-        start_url.append(prefix_url + params.get("keyword"," ") + x)
+        start_url.append(prefix_url + params.get("keyword"," ") + x + final_param)
     detail_url = []
     for url in start_url:
         status_code, js_url = V2_make_request_htm(url,url_formatter,logger)
@@ -694,9 +696,10 @@ def REQUESTTWO(dt,logger,**kwargs):
     #      {
     #          "kwargs":{
     #              "url":[https:\\,...] 暂时只有一个url，但为列表形式
-    #                 "q_params":["keyword1",...]暂时只有一个
+    #                 "q_params":"keyword1",暂时只有一个
     #                 "langugage":"CHINESE"
-    #                     "code":"gbk"
+    #                  "code":"gbk"
+    #                 "final_params":{这里面存储的是不变的params}
     #          }
     #      }
     #  }
@@ -707,16 +710,26 @@ def REQUESTTWO(dt,logger,**kwargs):
     po_param = kwargs.get("q_params"," ")
     langu = kwargs.get("language"," ")
     lang_code = kwargs.get("code"," ")
+    final_param = kwargs.get("final_param","")
     # 自带的start_requests 不一定编码方式要显式申明 先放着
     po_dic = {}
-    corelist = back_core(langu)
-    logger.debug(len(po_url))
+    corelist = back_core(langu,"")
     try:
-        for url in po_url:
-            urlword = []
-            for word in corelist:
-                urlword.append({po_param:word}) #加不加.encode(lang_code)
-            po_dic[url] = urlword
+        if final_param:#post参数中有没有多余不变的键值对
+            logger.debug("有final_params")
+            for url in po_url:
+                urlword = []
+                for word in corelist:
+                    temp = {po_param:word};temp.update(final_param)
+                    urlword.append(temp) #加不加.encode(lang_code)
+                po_dic[url] = urlword
+        else:
+            logger.debug("无final_parmas")
+            for url in po_url:
+                urlword = []
+                for word in corelist:
+                    urlword.append({po_param:word}) #加不加.encode(lang_code)
+                po_dic[url] = urlword
     except Exception as e:
         logger.warn(e)
     return po_url,po_dic
@@ -728,7 +741,7 @@ def REQUESTThree(dt, logger, **kwargs):
     # {startrequests:
     #      {
     #          "kwargs":{
-    #              "url":[https:\\,...] 暂时只有一个url，查询端口只有一个
+    #              "url":https:\\,... 暂时只有一个url，查询端口只有一个
     #                 "q_params":["keyword1",...] 索引字段只有一个，暂时只有一个，不行！
     #                 "langugage":"CHINESE"
     #                     "code":"gbk"

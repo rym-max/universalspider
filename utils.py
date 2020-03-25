@@ -930,10 +930,11 @@ def xml_DICT(data_xml,*args,**kwargs):
 #version2       --rym
 def back_core(language,blank=""):
     """
-    :param language: 语言
+    :param language
     :param blank:空格替代符
     :return: 关键词的列表
     """
+
     word_set = V2_corewords.get(language, "")
     word_list = list(word_set)
     if blank:

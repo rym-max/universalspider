@@ -1116,3 +1116,18 @@ class guanchaSpider(TemplatevierSpider):
         },
         "DOWNLOAD_DELAY": 1
     }
+
+class ifriSpider(TemplatevierSpider):
+    name = "ifri"
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipeline": 300
+
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+

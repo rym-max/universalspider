@@ -130,7 +130,6 @@ class TemplatevierSpider(CrawlSpider):
         # self.logger.info("START_URLS INIT Success!")
 
         #params 9
-
         start_request_params = self._config.get("start_requests",{})
         if start_request_params:
             Case = start_request_params.get("case",1)
@@ -139,7 +138,7 @@ class TemplatevierSpider(CrawlSpider):
             self.post_type = start_request_params.get("p_type",1)
             self.start_urls, self.form_list_dic = get_start_requests_params(self.last_crawl_date,
                 Case,**Kwargs)
-            self.logger.info(self.start_urls)
+            self.logger.info("start_urls produced"+str(self.start_urls))
         else:
             self.start_urls = []
             self.form_list_dic = {}
