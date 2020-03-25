@@ -928,14 +928,22 @@ def xml_DICT(data_xml,*args,**kwargs):
     pass
 #-------------------------end-----------------
 #version2       --rym
-def back_core(language):
+def back_core(language,blank=""):
     """
     :param language: 语言
+    :param blank:空格替代符
     :return: 关键词的列表
     """
-    word_set = V2_corewords.get(language,"")
+    word_set = V2_corewords.get(language, "")
     word_list = list(word_set)
-    return word_list
+    if blank:
+        keywordlist = []
+        for word in word_list:
+            tranresult = word.replace(" ",blank)
+            keywordlist.append(tranresult)
+        return keywordlist
+    else:
+        return word_list
 
 def V2_make_request_htm(url,formatter,logger):
     """

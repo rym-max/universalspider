@@ -468,12 +468,20 @@ def V2_URLONE(dt,timezone,logger,**kwargs):
     prefix_url = kwargs.get("prefix"," ") #注意加?
     params = kwargs.get("q_params"," ")
     language = kwargs.get("langu")
+    # German和Engish部分网址url需要空格替换符，默认为空，没有用到json可以不写
+    blank = kwargs.get("blankreplace","")
+    # 某些url在关键词之后还有一些固定字段，默认为空，没有用到json可以不写
+    # final_param = kwargs.get("final_param","")
 
-    coreword = back_core(language)  #语言确定返回关键词的列表
+
+    coreword = back_core(language,blank)  #语言确定返回关键词的列表
     start_url=[]
     for x in coreword:
+        # "https://www.boell.de/en/search/contents?","search_api_fulltext=",关键词
         start_url.append(prefix_url+params.get("keyword","")+x) #注意加=
     return start_url
+
+
 
 
 def V2_URLTWO(dt,timezone,logger,**kwargs):
