@@ -1,0 +1,25 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"/en/.+",
+                "deny":"",
+                "restrict_xpath":"//div[@class='view-content']",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        },
+        {
+            "linkextra":{
+                "allow":"search_api_fulltext=.+",
+                "deny":"",
+                "restrict_xpath":"//nav[@class='pager']/ul[@class='pager__items js-pager__items']//li[@class='pager__item']",
+                "restrict_css":""
+            },
+            "follow":1,
+            "callback": ""
+
+        }
+    ]
+}

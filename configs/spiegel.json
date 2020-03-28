@@ -1,0 +1,136 @@
+{
+    "spider": "spiegel",
+    "website": "http://www.spiegel.de/",
+    "WEBSITE": "SPIEGEL",
+    "channel":1,
+    "category":1,
+    "type": "新闻",
+    "CategoryID":1,
+    "index": "http://www.spiegel.de/",
+    "settings": {
+        "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+        "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsSpiderPipeline": 300
+         },
+     "DOWNLOAD_DELAY": 1
+    },
+    "start_urls": {
+        "case":0,
+        "Kwargs":{
+            "pageargs":[
+                {
+                    "formatter":"https://www.spiegel.de/politik/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/kultur/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/wirtschaft/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/panorama/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/netzwelt/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/wissenschaft/archiv-%(YYYY)s%(days3)s.html"
+                },
+                {
+                    "formatter":"https://www.spiegel.de/thema/meinung/archiv-%(YYYY)s%(days3)s.html"
+                }
+            ]
+        },
+        "need_process":0
+    },
+    "allowed_domains": [
+        "spiegel.de"
+    ],
+    "core_words":[],
+    "language":"GERMAN",
+    "filter_all":0,
+    "filter_depth":3,
+    "need_text":0,
+    "timezone":2,
+    "daylimit":"10,20,30",
+    "date_formatter":["%Y-%m-%dT%H:%M:%S+0100","%Y-%m-%dT%H:%M:%S+0200","%Y-%m-%d","%Y-%m-%d %H:%M:%S"],
+
+
+    "rules": "spiegel",
+
+    "NEED_BLOOM":1,
+    "NEED_FILTER_DATE":0,
+
+    "table":"ERMS_All",
+
+    "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//title/text()"
+					]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+						"//meta[@name='date']/@content"
+					]
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//meta[@name='news_keywords']/@content"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='spArticleContent']//p//text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='spArticleContent']"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "value",
+                    "args": [
+                        "SPIEGEL ONLINE"
+                    ]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//p[@class='author']//text()"
+                    ]
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"\\d+\\.html",
+                "deny":"",
+                "restrict_xpath":"//ul[@class='hcf-teaser-list']//li[@class='hcf-teaser ']",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+    ]
+}

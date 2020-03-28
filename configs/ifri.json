@@ -1,0 +1,116 @@
+{
+  "spider": "ifri",
+  "website": "ifri",
+  "WEBSITE": "IFRI",
+  "note": "法国国际关系研究所",
+  "channel": 1,
+  "category": 3,
+  "CategoryID": 3,
+  "type": "智库文章",
+  "index": "http://www.ifri.org/index.php",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES": {
+      "universalspider.pipelines.NewsMetaPipeline": 300
+    },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_requests": {
+    "case": 2,
+    "p_type": 1,
+    "Kwargs":{
+      "url":["https://www.ifri.org/fr/search/apachesolr_search/"],
+       "q_params": "search_keyword",
+      "language": "GERMAN",
+      "final_param": {"form_id":"spm_search_form"}
+     }
+  },
+  "allowed_domains": [
+  "www.ifri.org"
+  ],
+    "language":"GERMAN",
+    "need_filter_date":0,
+    "timezone":2,
+    "NEED_BLOOM":1,
+    "start_url_need_bloom": 0,
+    "date_formatter":["%Y-%m-%d %H:%M:%S"],
+
+  "table":"ERMS_All",
+  "rules": "ifri",
+  "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//h1[@class='main-title']/span[@class='text-resize-em']/text()"
+                    ]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//h1[@class='main-title']/span[@class='text-resize-em']/span[@class='sub-title']//text()"
+                    ],
+                  "re": "[a-zA-Z]+ \\d{4}"
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@class='list-motcle']//span[@class='one-motcle']//text()"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='field-items']//div[@class='field-item even']/p/text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='field-items']//div[@class='field-item even']/p[1]/text()"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//div[@class='contenugen-isbn']//text()"
+                    ]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//div[@class='author-container expert-event']//div[@class='text-resize-em']//text()"
+                    ],
+                    "re":"责任编辑:\\s+(.+)"
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+
+
+
+
+}

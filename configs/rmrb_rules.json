@@ -1,0 +1,24 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"nw\\.D110000renmrb_\\d+_\\d+-\\d+\\.htm",
+                "deny":"",
+                "restrict_xpath":"//div[@class='l_c']",
+                "restrict_css":""
+            },
+            "follow":1,
+            "callback":"parse_item"
+        },
+        {
+            "linkextra":{
+                "allow":"nbs\\.D110000renmrb_\\d+\\.htm",
+                "deny":"",
+                "restrict_xpath":"//a[@id='pageLink' and not(contains(text(),'广告'))]",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":""
+        }
+    ]
+}

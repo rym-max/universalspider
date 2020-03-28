@@ -1,0 +1,150 @@
+{
+    "spider": "tagesspiegel",
+    "website": "tagesspiegel",
+    "WEBSITE": "TAGESSPIEGEL",
+    "channel":1,
+    "category":1,
+    "type": "新闻",
+    "CategoryId":1,
+    "index": "https://www.tagesspiegel.de/",
+    "settings": {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0",
+		"ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsSpiderPipeline": 300
+         },
+     "DOWNLOAD_DELAY": 1
+    },
+    "start_urls": {
+		"case": 1,
+        "Kwargs":{
+            "pageargs":[
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?search-ressort=2968"
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?search-ressort=2902"
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?search-ressort=2876"
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?search-ressort=23852212"
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?search-ressort=3002"
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?p9049616=%(number)s&search-ressort=2968",
+                    "pages":[2,1.5,200,0]
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?p9049616=%(number)s&search-ressort=2902",
+                    "pages":[2,1.5,200,0]
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?p9049616=%(number)s&search-ressort=2876",
+                    "pages":[2,1.5,200,0]
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?p9049616=%(number)s&search-ressort=23852212",
+                    "pages":[2,1,200,0]
+                },
+                {
+                    "formatter":"https://www.tagesspiegel.de/suchergebnis/artikel/?p9049616=%(number)s&search-ressort=3002",
+                    "pages":[2,1,200,0]
+                }
+            ]
+        },
+        "need_process":0
+    },
+    "allowed_domains": [
+        "tagesspiegel.de"
+    ],
+    "timezone":2,
+    "language":"GERMAN",
+    "filter_all":0,
+    "filter_depth":3,
+    "need_text":0,
+    "daylimit":"20,40,60",
+    "date_formatter":["%Y-%m-%d","%Y-%m-%dT%H:%M:%S"],
+
+
+    "rules": "tagesspiegel",
+
+    "NEED_BLOOM":1,
+    "NEED_FILTER_DATE":0,
+
+    "table":"ERMS_All",
+
+    "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//meta[@property='og:title']/@content"
+                    ]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//time[@class='ts-time']/@datetime"
+                    ],
+                    "re":"(\\d+-\\d+-\\d+T\\d+:\\d+:\\d+)"
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//meta[@name='page-topic']/@content"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='ts-article-content']//p//text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='ts-article-content']"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method":"value",
+                    "args":[
+                        "DER TAGESSPIEGEL"
+					]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//header[@class='ts-article-header']//span[@class='ts-author']/text()"
+                    ]
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,119 @@
+{
+    "spider": "rmrb",
+    "website": "人民日报",
+    "WEBSITE": "RMRB",
+    "channel":1,
+    "category":1,
+    "type": "新闻",
+    "CategoryID":1,
+    "index": "http://paper.people.com.cn",
+    "settings": {
+        "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+        "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsStandFilterPipeline": 300
+         },
+     "DOWNLOAD_DELAY": 1
+    },
+    "start_urls": {
+        "case":0,
+        "Kwargs":{
+            "pageargs":[
+                {"formatter":"http://paper.people.com.cn/rmrb/html/%(YYYY)s-%(mm)s/%(dd)s/nbs.D110000renmrb_01.htm",
+                "start_hour":8
+                }
+            ]
+        },
+        "need_process":0
+    },
+    "allowed_domains": [
+        "paper.people.com.cn"
+    ],
+    "core_words":["中德","德国"],
+    "language":"CHINESE",
+    "filter_all":0,
+    "need_text":0,
+    "need_filter_date":0,
+    "filter_depth":3,
+    "timezone":8,
+    "daylimit":"10,20,30",
+    "date_formatter":["%Y-%m-%d"],
+
+    "rules": "rmrb",
+
+    "NEED_BLOOM":1,
+    "NEED_FILTER_DATE":0,
+
+    "table":"ERMS_All",
+
+    "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//title/text()"
+                    ]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//input[@name='pubtime']/@value"
+                    ]
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//meta[@name='keywords']/@content"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='text_c']//p//text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='text_c']"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "value",
+                    "args": [
+                        "人民日报"
+                    ]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//div[@class='text_c']/h4/text()"
+                    ],
+                    "re":"本报记者\\s+(.+)"
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+  "spider": "wzb",
+  "website": "wzb",
+  "WEBSITE": "WZB",
+  "channel": 1,
+  "category": 3,
+  "CategoryID":3,
+  "type": "智库性文章",
+  "index":"https://www.wzb.eu/de",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 21,
+     "Kwargs":{
+       "prefix": "https://www.wzb.eu/de/search-content?",
+       "q_params": {
+         "keyword":"search_api_fulltext="
+       },
+       "langu": "GERMAN",
+       "blankreplace":"+"
+     },
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.wzb.eu"
+      ],
+
+  "timezone":2,
+  "language":"GERMAN",
+  "date_formatter":["%Y-%m-%d %H:%M:%S"],
+
+  "NEED_BLOOM": 1,
+  "need_filter_date": 0,
+
+  "table": "ERMS_ALL",
+  "rules": "wzb",
+ "item": {
+    "class": "NewsItemV3",
+    "loader": "NewsLoaderV3",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='region region-subheader']//h1[@class='page-header']//text()"]
+        }
+      ],
+      "author": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='views-row']//div[@class='node node--type-ct-event node--view-mode-vm-people ds-1col clearfix']//text()"]
+        }
+      ],
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='views-row']//div[@class='wzb-indent-left wzb-subline']//text()"]
+        }
+      ],
+      "source": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='views-row']//div[@class='field field--name-field-organizer field--type-string-long field--label-above']//text()"]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ],
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='row']//div[@class='field field--name-body field--type-text-with-summary field--label-hidden field--item']//p//text()"]
+        }
+      ]
+
+    }
+  }
+
+
+}

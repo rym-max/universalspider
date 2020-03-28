@@ -1,0 +1,94 @@
+{
+  "spider": "ZEIT",
+  "website": "zeit",
+  "WEBSITE": "ZEIT",
+  "channel": 1,
+  "category": 1,
+  "CategoryID":1,
+  "type": "新闻",
+  "index":"https://www.zeit.de",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 11,
+     "Kwargs":{
+       "pageargs":[
+    "https://www.zeit.de/politik/index", "https://www.zeit.de/gesellschaft/index","https://www.zeit.de/wirtschaft/index"
+    ]
+     },
+
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.zeit.de"
+      ],
+
+  "timezone":8,
+    "core_words":[],
+    "language":"GERMAN",
+
+  "date_formatter":["%Y-%m-%dT%H:%M:%S+01:00","%Y-%m-%d %H:%M:%S"],
+
+  "rules": "ZEIT",
+
+  "NEED_BLOOM": 1,
+  "NEED_FILTER_DATE": 0,
+
+  "table": "ERMS_ALL",
+ "item": {
+    "class": "NewsItemV3",
+    "loader": "NewsLoaderV3",
+    "attrs": {
+      "subject": [
+        {
+           "method": "xpath",
+          "args": ["//div[@class='page__content']/main/article/header/div[1]/h1/span[@class='article-heading__kicker']/text()"]
+        }
+      ],
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='page__content']/main/article/header/div[1]/h1/span[@class='article-heading__title']/text()"]
+        }
+      ],
+      "author": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='page__content']/main/article/header/div[2]/div[@class='byline']//span[@itemprop='name']//text()"]
+        }
+      ],
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='page__content']/main/article/header/div[2]/div[@class='metadata']/time/@datetime"]
+        }
+      ],
+      "source": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='page__content']/main/article/header/div[2]/div[@class='metadata']//span[@class='metadata__source']/text()"]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ],
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='article-page']/p[@class='paragraph article__item']//text()"]
+        }
+      ]
+
+    }
+  }
+
+
+}

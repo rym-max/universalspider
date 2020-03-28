@@ -1,0 +1,114 @@
+{
+  "spider": "cap",
+  "website": "cap",
+  "WEBSITE": "CAP",
+  "note": "慕尼黑大学应用政策研究中心（C. A. P)",
+  "channel": 1,
+  "category": 3,
+  "CategoryID": 3,
+  "type": "智库文章",
+  "index": "https://www.cap-lmu.de",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES": {
+      "universalspider.pipelines.NewsMetaPipeline": 300
+    },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_requests": {
+    "case": 2,
+    "p_type": 1,
+    "Kwargs":{
+      "url":["https://www.cap-lmu.de/suchergebnis.php"],
+       "q_params": "we_lv_search_0",
+      "language": "GERMAN",
+      "final_param": {"we_from_search_0":"1"}
+     }
+  },
+  "allowed_domains": [
+  "www.cap-lmu.de"
+  ],
+    "language":"GERMAN",
+    "need_filter_date":0,
+    "timezone":2,
+    "NEED_BLOOM":1,
+    "start_url_need_bloom": 0,
+    "date_formatter":["%d.%m.%Y"],
+
+  "table":"ERMS_All",
+  "rules": "cap",
+  "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//div[@id='wrapper']//main[@id='content']//h1//text()"
+                    ]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@id='wrapper']//main[@id='content']//p[@class='grey']//text()"
+                    ],
+                  "re": "\\d{2}\\.\\d{2}\\.\\d{4}"
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@id='wrapper']//main[@id='content']//h2//text()"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@id='text']//p//text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@id='text']//p[1]//text()"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//div[@id='wrapper']//main[@id='content']//p[@class='grey']//text()"
+                    ],
+                  "re": "\\.[a-zA-Z]+"
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//aside[@id='right']//div[@class='box']//div[@class='t10b']//text()"
+                    ],
+                    "re":"责任编辑:\\s+(.+)"
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+
+}

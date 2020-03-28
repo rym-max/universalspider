@@ -1,0 +1,15 @@
+{
+  "item": [
+    {
+      "linkextra": {
+        "allow": ".*/\\d{4}-\\d{2}/.*",
+        "deny": "",
+        "restrict_xpath": "//main[@class='main main--centerpage']",
+        "restrict_css":""
+      },
+      "follow": 0,
+      "callback": "parse_item"
+
+      }
+  ]
+}

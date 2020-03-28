@@ -1,0 +1,96 @@
+{
+  "spider": "boell",
+  "website": "boell",
+  "WEBSITE": "BOELL",
+  "note": "海因里希·伯尔基金会",
+  "channel": 1,
+  "category": 3,
+  "CategoryID":3,
+  "type": "智库文章",
+  "index":"http://www.boell.de/en",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 21,
+     "Kwargs":{
+      "prefix": "https://www.boell.de/en/search/contents?",
+       "q_params": {
+         "keyword": "search_api_fulltext="
+       },
+       "langu": "GERMAN"
+     },
+
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.boell.de"
+      ],
+
+  "timezone":2,
+  "need_filter_date":0,
+    "language":"GERMAN",
+
+  "date_formatter":["%d %B %Y"],
+
+  "rules": "boell",
+
+  "NEED_BLOOM": 1,
+
+  "table": "ERMS_ALL",
+ "item": {
+    "class": "NewsItemV3",
+    "loader": "NewsLoaderV3",
+    "attrs": {
+      "subject": [
+        {
+           "method": "xpath",
+          "args": ["//div[@class='article__footer']/div[@class='field field--name-field-tags field--type-entity-reference field--label-inline']//div[@class='field__item']//text()"]
+        }
+      ],
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='region region-content']//h1[@class='page-title']//text()"]
+        }
+      ],
+      "author": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='content-authors field--name-field-authors']/a[@href]//text()"]
+        }
+      ],
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//div[@id='block-theodor-content']/article/footer[@class='article__meta']//div[@class='article__date']//text()"]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ],
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//div[@id='main-col']//div[@class='artikel-wrap']/text()"]
+        }
+      ],
+      "text": [
+        {
+          "method": "xpath",
+          "args": ["//div[@id='main-col']//div[@class='artikel-wrap']/p//text()"]
+        }
+      ]
+
+    }
+  }
+
+
+}

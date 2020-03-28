@@ -1,0 +1,14 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"\\.html",
+                "deny":"",
+                "restrict_xpath":"//div[@class='teaser']//a",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+    ]
+}

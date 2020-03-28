@@ -1,0 +1,14 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"/\\d+?/.*/",
+                "deny":"",
+                "restrict_xpath":"//div[@class='results_container']",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+    ]
+}

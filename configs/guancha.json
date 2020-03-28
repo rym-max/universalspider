@@ -1,0 +1,116 @@
+{
+    "spider": "guancha",
+    "website": "观察者网",
+    "WEBSITE": "GUANCHA",
+    "channel":1,
+    "category":1,
+    "type": "新闻",
+    "CategoryID":1,
+    "index": "https://www.guancha.cn/",
+    "settings": {
+        "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+        "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+         },
+     "DOWNLOAD_DELAY": 1
+    },
+    "start_requests": {
+        "case":3,
+        "p_type": 2,
+        "Kwargs":{
+            "url": "https://user.guancha.cn/main/search?click=news&",
+            "headers": {"X-Requested-With": "XMLHttpRequest"},
+            "core_in_url": 1,
+            "final_params": {"addMore":"search-news-list"},
+            "keyword": "keyword",
+            "page_num": 10,
+            "page_params": "page",
+            "language": "CHINESE",
+            "code": "utf-8",
+            "formatter":"https://w{3}.\\w{7}.\\w{2}/[a-zA-Z]+/\\d{4}_\\d{2}_\\d{2}_\\d+.shtml"
+        }
+    },
+    "allowed_domains": [
+        "www.guancha.cn"
+    ],
+    "language":"CHINESE",
+    "need_filter_date":0,
+    "timezone":8,
+    "filter_depth":3,
+    "NEED_BLOOM":1,
+    "date_formatter":["%Y-%m-%d %H:%M:%S"],
+
+    "table":"ERMS_All",
+    "rules": "guancha",
+    "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//div[@class='main content-main']//li[@class='left left-main']/h3//text()"
+                    ]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@class='main content-main']//ul[@class='two-coloum fix']//div[@class='time fix']/span[1]//text()"
+                    ]
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "/html/body/div[1]/div[3]/ul/li[1]/div[5]/a/text()"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='content all-txt']/p/text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@class='content all-txt']/p[1]/text()"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//div[@class='main content-main']//div[@class='time fix']//span[3]//text()"
+                    ]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "/html/body/div[1]/div[3]/ul/li[1]/ul[1]//li//text()"
+                    ],
+                    "re":"责任编辑:\\s+(.+)"
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+}

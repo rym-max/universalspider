@@ -1,0 +1,25 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"/fr/.+",
+                "deny":"",
+                "restrict_xpath":"//div[@class='region region-content']/article[@id]",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        },
+        {
+            "linkextra":{
+                "allow":"/fr/.+",
+                "deny":"",
+                "restrict_xpath":"//div[@class='text-center']/ul[@class='pagination']//li",
+                "restrict_css":""
+            },
+            "follow":1,
+            "callback": ""
+
+        }
+    ]
+}

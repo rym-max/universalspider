@@ -1,0 +1,117 @@
+{
+    "spider": "tagesschau",
+    "website": "https://www.tagesschau.de/",
+    "WEBSITE": "TAGESSCHAU",
+    "channel":1,
+    "category":1,
+    "type": "新闻",
+    "CategoryID":1,
+    "index": "https://www.tagesschau.de/",
+    "settings": {
+        "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+        "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsSpiderPipeline": 300
+         },
+     "DOWNLOAD_DELAY": 1
+    },
+    "start_urls": {
+		"case": 1,
+        "Kwargs":{
+            "pageargs":[
+                {
+                    "formatter":"https://www.tagesschau.de/allemeldungen/index.html"
+                }
+            ]
+        },
+        "need_process":0
+    },
+    "allowed_domains": [
+        "tagesschau.de"
+    ],
+    "daylimit":"1,3,6",
+    "language":"GERMAN",
+    "filter_all":0,
+    "filter_depth":3,
+    "need_text":0,
+    "timezone":2,
+    "date_formatter":["%Y-%m-%dT%H:%M:%S"],    
+
+
+    "rules": "tagesschau",
+
+    "NEED_BLOOM":1,
+    "NEED_FILTER_DATE":0,
+
+    "table":"ERMS_All",
+
+    "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//title/text()"
+					]
+                }
+            ],
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+						"//meta[@name='date']/@content"
+					]
+                }
+            ],
+            "subject":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//meta[@name='keywords']/@content"
+                    ]
+                }
+            ],
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//p[@class='text small']//text()"
+                    ]
+                }
+            ],
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//p[@class='text small']"
+                    ]
+                }
+            ],
+            "source":[
+                {
+                    "method": "value",
+                    "args": [
+                        "TAGESSCHAU"
+                    ]
+                }
+            ],
+            "author":[
+                {
+                    "method":"xpath",
+                    "args":[
+                        "//link[@rel='author']/@title"
+                    ]
+                }
+            ],
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+}

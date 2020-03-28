@@ -1,0 +1,25 @@
+{
+    "item":[
+        {
+            "linkextra":{
+                "allow":"/\\w+.*\\.php",
+                "deny":"",
+                "restrict_xpath":"//div[@id='wrapper']//main[@id='content']//p",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        },
+        {
+            "linkextra":{
+                "allow":"/.+\\.php\\?.+",
+                "deny":"",
+                "restrict_xpath":"//div[@id='wrapper']//main[@id='content']//table//tr//td",
+                "restrict_css":""
+            },
+            "follow":1,
+            "callback": ""
+
+        }
+    ]
+}
