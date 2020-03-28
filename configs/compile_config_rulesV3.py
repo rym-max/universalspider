@@ -197,4 +197,4 @@ def get_result(name,path):
 
 if __name__ == "__main__":
     # update("guancha")
-    insert("ifri")
+    insert("cap")

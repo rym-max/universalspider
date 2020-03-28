@@ -1,5 +1,5 @@
 import pymssql
-from universalspider.config_INFO import *
+from .config_INFO import *
 
 # 设置爬虫status为2
 

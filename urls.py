@@ -467,9 +467,9 @@ def V2_URLONE(dt,timezone,logger,**kwargs):
 
     logger.debug("i'm here V2_URLONE")
     prefix_url = kwargs.get("prefix"," ") #注意加?
-    params = kwargs.get("q_params"," ")
+    params = kwargs.get("q_params"," ")  #注意加=
     # langu是一个列表
-    language = kwargs.get("langu")
+    language = kwargs.get("langu","")
     # German和Engish部分网址url需要空格替换符，默认为空，没有用到json可以不写
     blank = kwargs.get("blankreplace","")
     # 某些url在关键词之后还有一些固定字段，默认为空，没有用到json可以不写

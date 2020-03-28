@@ -940,11 +940,18 @@ def back_core(language,blank=""):
     if blank:
         keywordlist = []
         for word in word_list:
-            tranresult = word.replace(" ",blank)
+            finalresult = symboltran(word)
+            tranresult = finalresult.replace(" ",blank)
             keywordlist.append(tranresult)
         return keywordlist
     else:
         return word_list
+
+def symboltran(wordstr):
+    symbol_dict = {"+": "%2B", ",": "%2C", "ß": "%C3%9F", "ö": "%C3%B6", "ä": "%C3%A4"}
+    for k in symbol_dict.keys():
+        wordstr = wordstr.replace(k,symbol_dict[k])
+    return wordstr
 
 def V2_make_request_htm(url,formatter,logger):
     """
