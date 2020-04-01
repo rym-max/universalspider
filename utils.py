@@ -938,6 +938,7 @@ def back_core(language,blank=""):
     word_set = V2_corewords.get(language, "")
     word_list = list(word_set)
     if blank:
+        # blank和关键词中某些字母都需要替换
         keywordlist = []
         for word in word_list:
             finalresult = symboltran(word)

@@ -611,6 +611,74 @@ class NewsMetaPipeline(object):
         set_stop_action(spider._name, spider.spider_id, self.logger, user=spider.user, ip=spider.ip, result=result_str)
 
 
+class NewsMetaPipelineNotFilter(NewsMetaPipeline):
+
+    def process_item(self, item, spider):
+        '''process item with different validation & prepare item & log details
+        validation as follows:
+        1.filter is necessary
+        2.date is well
+        prepare as follows:
+        1.meta value
+        2.db item
+        '''
+        self.item_count += 1
+        # if need store
+        tag = False
+
+        title = item.get('title', '')
+        dateissued = item.get('dateissued', '1970-01-01 00:00:00')
+        subject = item.get('subject', [])
+        text = item.get('text', '')
+        description = item.get('description', '')
+        source = item.get('source', '')
+        author = item.get('author', [])
+        url = item.get('url', '')
+
+        # validation 1
+        tag = True
+        # validation 2
+        news_date, tag_date = judge_date(dateissued, self.news_date_formatter, self.last_date, self.timezone)
+        self.logger.debug("tag<<<<<<<<" + str(tag))
+        self.logger.debug("datetag<<<<<<<<<" + str(tag_date))
+
+        if tag and (tag_date or not self.need_filter_date):
+
+            self.logger.debug("进来过一次")
+            sql_string = "INSERT INTO " + self.table + \
+                         " (ChannelId,CategoryId,MetadataValue,IsGermany,Sort,Click,Status,IsSolr,CreateTime,ModifyTime) " + \
+                         " VALUES " + \
+                         " (%(channel)s,%(category)s,%(metadata)s,%(isGermany)s,0,0,0,1,%(create)s,%(create)s)"
+            # prepare 1
+            metavalue = {
+                "dc.title": title,
+                "dc.date.issued": news_date.strftime("%Y-%m-%d"),
+                "dc.subject": subject,
+                "dc.description": description,
+                "dc.source": source,
+                "dc.author": author,
+                "dc.url": url,
+                "dc.language": self.language
+            }
+            # prepare 2
+            value_item = {
+                "channel": self.channel,
+                "category": self.category,
+                "metadata": dict_XML(metavalue, field_name="field"),
+                "isGermany": self.isGerman or isGerman(text, self.language),
+                "create": get_now_date()
+            }
+
+            try:
+                self.cur.execute(sql_string, value_item)
+                self.cnx.commit()
+                self.related_count += 1
+            except Exception as e:
+                self.logger.warn("insert one item error,reason:" + str(e))
+
+        self._log_for_once()
+
+
 # ------------------------------version4------------------------------
 class JournalMetaPipeline(NewsMetaPipeline):
 

@@ -53,10 +53,18 @@
                 {
                     "method": "xpath",
                     "args":[
-                        "//div[@id='wrapper']//main[@id='content']//p[@class='grey']//text()"
+                        "//div[@id='wrapper']//main[@id='content']//p[@class]//text()"
+                    ],
+                  "re": "\\d{2}\\.\\d{2}\\.\\d{4}"
+                },
+              {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@id='wrapper']//div[@id='content']//table//tr//td//p//text()"
                     ],
                   "re": "\\d{2}\\.\\d{2}\\.\\d{4}"
                 }
+
             ],
             "subject":[
                 {

@@ -14,7 +14,7 @@
             "linkextra":{
                 "allow":"/.+\\.php\\?.+",
                 "deny":"",
-                "restrict_xpath":"//div[@id='wrapper']//main[@id='content']//table//tr//td",
+                "restrict_xpath":"//div[@id='wrapper']//main[@id='content']//table//tr//td//a[@rel='next']",
                 "restrict_css":""
             },
             "follow":1,
