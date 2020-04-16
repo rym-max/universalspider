@@ -59,9 +59,30 @@ def symboltran(wordstr):
         wordstr = wordstr.replace(k,symbol_dict[k])
     return wordstr
 
+def test_json():
+    url1 = "https://www.institutmontaigne.org/json/recherche_globale/type=article&tri=created&index=recherche&ordre=DESC&selection=tout&categorie=&page=1&langue=fr"
+    headers1 = {"Referer": "https://www.institutmontaigne.org/blog?recherche=Silk%20Road%20Economic%20Belt&tri=created&ordre=DESC"}
+    response1 = requests.get(url1,headers1)
+    response1.encoding = "UTF-8"
+    print(response1.status_code)
+    temp1 = response1.text
+    # print(response1.text)
+
+    url2 = "https://www.institutmontaigne.org/json/recherche_globale/type=article&tri=created&index=recherche&ordre=DESC&selection=tout&categorie=&page=1&langue=fr"
+    # headers2 = {"Referer": "https://www.institutmontaigne.org/blog?recherche=China&tri=created&ordre=DESC"}
+    response2 = requests.get(url2)
+    response2.encoding = "UTF-8"
+    print(response2.status_code)
+    temp2 = response2.text
+    # print(response2.text)
+
+    print(temp1==temp2)
+
+
 if __name__=="__main__":
     # log_test()
-    # bug_test()
-    result = symboltran("17 + 1")
-    print(result)
+    # # bug_test()
+    # result = symboltran("17 + 1")
+    # print(result)
+    test_json()
 

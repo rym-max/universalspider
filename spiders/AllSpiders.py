@@ -946,8 +946,122 @@ class issSpider(TemplatedreiSpider):
         "DOWNLOAD_DELAY": 1
     }
 
+class jauresSpider(TemplatedreiSpider):
+    name = 'jaures'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
 
+class cepsoingSpider(TemplatedreiSpider):
+    name = 'cepsoing'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
 
+class frstrategieSpider(TemplatedreiSpider):
+    name = 'frstrategie'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class cepiiSpider(TemplatedreiSpider):
+    name = 'cepii'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class chathamSpider(TemplatedreiSpider):
+    name = 'chatham'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class rusiSpider(TemplatedreiSpider):
+    name = 'rusi'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class cpsorgSpider(TemplatedreiSpider):
+    name = 'cpsorg'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class civitasSpider(TemplatedreiSpider):
+    name = 'civitas'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class euroasiaSpider(TemplatedreiSpider):
+    name = 'euroasia'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
 
 # ---------------version 4-----------journal
 class EuropeanstudiesSpider(TemplatevierSpider):

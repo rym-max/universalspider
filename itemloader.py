@@ -91,14 +91,14 @@ class NewsLoaderV3(BasicLoader):
     #title default
     #dateissued default
     dateissued_out = Compose(TakeFirst(), lambda s:s.strip(), lambda s:s.replace(r"\n",""))
-    subject_out = Compose(Join())
+    subject_out = Compose(Join(),lambda s:s.strip())
     text_out = Compose(Join(), lambda s: s.strip(),
         lambda s: s.replace("\u3000\u3000",""),
         lambda s: s.replace("\xa0",""),
         lambda s: s.replace(r"\r\n","<br>"))
     description_out = Compose(Join(), lambda s: s.strip(), replace_xml_space)
-    source_out = Compose(Join(), lambda s: s.strip())
-    author_out = Compose(Join())
+    source_out = Compose(Join(), lambda s:s.strip())
+    author_out = Compose(Join(),lambda s:s.strip())
     #url default
 
 #-----------------version 4
