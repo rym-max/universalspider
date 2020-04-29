@@ -79,10 +79,10 @@ def test_json():
     print(temp1==temp2)
 
 
+
 if __name__=="__main__":
     # log_test()
     # # bug_test()
     # result = symboltran("17 + 1")
     # print(result)
     test_json()
-

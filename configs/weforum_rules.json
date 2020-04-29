@@ -1,0 +1,14 @@
+{
+  "item": [
+        {
+            "linkextra":{
+                "allow":"/.+/.+",
+                "deny":"",
+                "restrict_xpath":"//div[@class='page row']//aside[@class='page__sidebar web-search-results']//article/a[@href]",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+  ]
+}

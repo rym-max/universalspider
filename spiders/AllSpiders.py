@@ -1063,6 +1063,84 @@ class euroasiaSpider(TemplatedreiSpider):
         "DOWNLOAD_DELAY": 1
     }
 
+class iwepSpider(TemplatedreiSpider):
+    name = 'iwep'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class azjaSpider(TemplatedreiSpider):
+    name = 'azja'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class oswSpider(TemplatedreiSpider):
+    name = 'osw'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class bruegelSpider(TemplatedreiSpider):
+    name = 'bruegel'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class weforumSpider(TemplatedreiSpider):
+    name = 'weforum'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
+class martensSpider(TemplatedreiSpider):
+    name = 'martens'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
 # ---------------version 4-----------journal
 class EuropeanstudiesSpider(TemplatevierSpider):
     name = "europeanstudies"
@@ -1257,6 +1335,19 @@ class JCMSSpider(TemplatedreiSpider):
         "DOWNLOAD_DELAY": 1
     }
 
+class tandfonlineSpider(TemplatedreiSpider):
+    name = 'tandfonline'
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.JournalMetaPipeline": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
+
 
 
 # -----------------not journal,but Templatevier----------------------------
@@ -1314,4 +1405,16 @@ class zefSpider(TemplatevierSpider):
         "DOWNLOAD_DELAY": 1
     }
 
+class wiiwSpider(TemplatevierSpider):
+    name = "wiiw"
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
+        "ITEM_PIPELINES": {
+            "universalspider.pipelines.NewsMetaPipelineNotFilter": 300
+        },
+        "DOWNLOADER_MIDDLEWARES": {
+            "universalspider.middlewares.BloomFilterMiddlewares": 300
+        },
+        "DOWNLOAD_DELAY": 1
+    }
 

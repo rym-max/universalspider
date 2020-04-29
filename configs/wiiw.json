@@ -1,0 +1,103 @@
+{
+  "spider": "wiiw",
+  "website": "wiiw",
+  "WEBSITE": "WIIW",
+  "note": "维也纳国际经济研究所",
+  "channel": 1,
+  "category": 3,
+  "CategoryID": 3,
+  "type": "智库文章",
+  "index": "http://www.wiiw.ac.at/",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES": {
+      "universalspider.pipelines.NewsMetaPipeline": 300
+    },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_requests": {
+    "case": 2,
+    "p_type": 1,
+    "Kwargs":{
+      "url":["https://wiiw.ac.at/search.html"],
+       "q_params": "hkeywords",
+      "language": "ENGLISH"
+     }
+  },
+  "allowed_domains": [
+  "wiiw.ac.at"
+  ],
+    "language":"ENGLISH",
+    "need_filter_date":0,
+    "timezone":2,
+    "NEED_BLOOM":1,
+    "start_url_need_bloom": 0,
+    "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d"],
+
+  "table":"ERMS_All",
+  "rules": "wiiw",
+  "item": {
+        "class": "NewsItemV3",
+        "loader": "NewsLoaderV3",
+        "attrs": {
+            "title":[
+                {
+                    "method": "xpath",
+                    "args": [
+                        "//h1[@class='main-title']/span[@class='text-resize-em']/text()"
+                    ]
+                }
+            ],
+
+            "dateissued":[
+                {
+                    "method": "xpath",
+                    "args":[
+                        "//div[@id='content']//div[@class='clearfix']//p//text()"
+                    ],
+                  "re": "\\d{2} [a-zA-Z]+ \\d{4}"
+                }
+            ],
+
+            "text":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@id='content']//div//text()"
+                    ]
+                }
+            ],
+
+            "description":[
+                {
+                    "method":"xpath",
+                    "args": [
+                        "//div[@id='content']//p[@class='leader']//text()"
+                    ]
+                }
+            ],
+
+            "source":[
+                {
+                    "method": "value",
+                    "args": [
+                        "维也纳国际经济研究所"
+                    ]
+                }
+            ],
+
+            "url":[
+                {
+                    "method": "attr",
+                    "args": [
+                        "url"
+                    ]
+                }
+            ]
+        }
+    }
+
+
+
+
+}

@@ -1,0 +1,14 @@
+{
+  "item": [
+        {
+            "linkextra":{
+                "allow":"",
+                "deny":"",
+                "restrict_xpath":"//div[@id='content']//div[@class='view-content clearfix']//div[@class]//a[@href]",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+    ]
+}

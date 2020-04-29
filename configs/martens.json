@@ -1,0 +1,113 @@
+{
+  "spider": "martens",
+  "website": "martens",
+  "WEBSITE": "MARTENS",
+  "channel": 1,
+  "category": 3,
+  "CategoryID":3,
+  "type": "智库性文章",
+  "index":"http://www.martenscentre.eu/",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 21,
+     "Kwargs":{
+       "prefix": "https://www.martenscentre.eu/search-by-term?",
+       "q_params": {
+         "keyword":"qterm="
+       },
+       "langu": "ENGLISH",
+       "blankreplace":"%20"
+     },
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.martenscentre.eu"
+      ],
+
+  "timezone":2,
+  "language":"ENGLISH",
+  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d"],
+
+  "NEED_BLOOM": 1,
+  "need_filter_date": 0,
+
+  "table": "ERMS_ALL",
+  "rules": "martens",
+ "item": {
+    "class": "NewsItemV3",
+    "loader": "NewsLoaderV3",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//title//text()"]
+        }
+      ],
+
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//meta[@name='description']//@content"]
+        }
+      ],
+
+      "text": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='field-items']//div[@class='field-item even']/p//text()"]
+        }
+      ],
+
+      "author": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@class='blog-author-name']//a//text()"
+          ]
+        }
+      ],
+
+      "subject": [
+        {
+          "method": "xpath",
+          "args": [
+            "//ul[@class='field-items']//li//text()"
+          ]
+        }
+      ],
+
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='field-items']//div[@class='field-item even']//text()"],
+           "re":"[a-zA-Z]+ \\d{2}, \\d{4}"
+      }
+      ],
+
+      "source": [
+        {
+          "method":"value",
+          "args": [
+            "维尔弗里德·马尔滕斯欧洲研究中心（比利时）"
+          ]
+        }
+      ],
+
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ]
+
+    }
+  }
+
+
+}

@@ -1,0 +1,14 @@
+{
+  "item": [
+        {
+            "linkextra":{
+                "allow":"https://www.bruegel.org/.+",
+                "deny":"",
+                "restrict_xpath":"//body[@class='search search-results']/a[@href]",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        }
+  ]
+}

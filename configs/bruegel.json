@@ -1,0 +1,104 @@
+{
+  "spider": "bruegel",
+  "website": "bruegel",
+  "WEBSITE": "BRUEGEL",
+  "channel": 1,
+  "category": 3,
+  "CategoryID":3,
+  "type": "智库性文章",
+  "index":"http://www.bruegel.org/",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 21,
+     "Kwargs":{
+       "prefix": "https://www.bruegel.org/?",
+       "q_params": {
+         "keyword":"s="
+       },
+       "langu": "ENGLISH",
+       "blankreplace":"+"
+     },
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.bruegel.org"
+      ],
+
+  "timezone":2,
+  "language":"ENGLISH",
+  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d"],
+
+  "NEED_BLOOM": 1,
+  "need_filter_date": 0,
+
+  "table": "ERMS_ALL",
+  "rules": "bruegel",
+ "item": {
+    "class": "NewsItemV3",
+    "loader": "NewsLoaderV3",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//title//text()"]
+        }
+      ],
+
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//meta[@name='description']//@content"]
+        }
+      ],
+
+      "text": [
+        {
+          "method": "xpath",
+          "args": ["//meta[@name='description']//@content"]
+        }
+      ],
+
+      "author": [
+        {
+          "method": "xpath",
+          "args": [
+            "//p[@class='meta']//a[@rel='author']//text()"
+          ]
+        }
+      ],
+
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//p[@class='meta selectionShareable']//span[@class='row']//text()"],
+           "re":"[a-zA-Z]+ \\d{2}, \\d{4}"
+      }
+      ],
+
+      "source": [
+        {
+          "method":"value",
+          "args": [
+            "布鲁塞尔欧洲与全球经济实验室（比利时）"
+          ]
+        }
+      ],
+
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ]
+
+    }
+  }
+
+
+}

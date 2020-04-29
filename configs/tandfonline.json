@@ -1,0 +1,105 @@
+{
+  "spider": "tandfonline",
+  "website": "tandfonline",
+  "WEBSITE": "TANDFONLINE",
+  "channel": 2,
+  "category": 4,
+  "CategoryID":4,
+  "type": "智库性文章",
+  "index":"https://www.tandfonline.com/toc/fgrp20/current",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "ITEM_PIPELINES":{
+            "universalspider.pipelines.NewsMetaPipeline": 300
+        },
+    "DOWNLOAD_DELAY": 1
+  },
+  "start_urls": {
+    "case": 21,
+     "Kwargs":{
+       "prefix": "https://www.tandfonline.com/action/doSearch?",
+       "q_params": {
+         "keyword":"AllField="
+       },
+       "langu": "ENGLISH",
+       "blankreplace":"+",
+       "final_param": "&SeriesKey=fgrp20"
+     },
+    "need_process": 0
+  },
+  "allowed_domains":[
+    "www.tandfonline.com"
+      ],
+
+  "timezone":2,
+  "language":"ENGLISH",
+  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d","%d %b %Y"],
+
+  "NEED_BLOOM": 1,
+  "need_filter_date": 0,
+
+  "table": "ERMS_ALL",
+  "rules": "tandfonline",
+ "item": {
+    "class": "NewsItemV4",
+    "loader": "NewsLoaderV4",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": ["//title//text()"]
+        }
+      ],
+
+      "description": [
+        {
+          "method": "xpath",
+          "args": ["//div[@class='abstractSection abstractInFull']//text()"]
+        }
+      ],
+
+      "text": [
+        {
+          "method": "xpath",
+          "args": ["//article[@class='article']//div[@class='hlFld-Fulltext']/div[@id]//text()"]
+        }
+      ],
+
+      "author": [
+        {
+          "method": "xpath",
+          "args": [
+            "//a[@class='entryAuthor']/text()"
+          ]
+        }
+      ],
+
+      "dateissued": [
+        {
+          "method": "xpath",
+          "args": ["//meta[@name='dc.Date']/@content"],
+           "re":"\\d{2} [a-zA-Z]+ \\d{4}"
+      }
+      ],
+
+      "source": [
+        {
+          "method":"value",
+          "args": [
+            "German Politics"
+          ]
+        }
+      ],
+
+      "url": [
+        {
+          "method": "attr",
+          "args": ["url"]
+        }
+      ]
+
+    }
+  }
+
+
+}
