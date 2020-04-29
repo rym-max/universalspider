@@ -1,0 +1,26 @@
+{
+  "item": [
+        {
+            "linkextra":{
+                "allow":"",
+                "deny":"",
+                "restrict_xpath":"//div[@class='results-wrapper']//div[starts-with(@class,'contentItem')]//div[@class='title-wrapper']//a[@target='_self']",
+
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        },
+    {
+      "linkextra": {
+        "allow": "",
+        "deny": "",
+        "restrict_xpath": "//div[@class='pagination']//span[@class='current']/following-sibling::*[1]",
+        "restrict_css": ""
+      },
+      "follow": 1,
+      "callback": ""
+    }
+  ]
+
+}
