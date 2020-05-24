@@ -32,7 +32,7 @@
 
   "timezone":2,
   "language":"ENGLISH",
-  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d"],
+  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d","%d %b %Y","%b %Y","%Y年%m月%d日"],
 
   "NEED_BLOOM": 1,
   "need_filter_date": 0,

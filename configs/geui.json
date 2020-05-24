@@ -1,12 +1,12 @@
 {
-  "spider": "bergha",
-  "website": "bergha",
-  "WEBSITE": "BERGHA",
+  "spider": "geui",
+  "website": "geui",
+  "WEBSITE": "GEUI",
   "channel": 2,
   "category": 4,
   "CategoryID":4,
   "type": "智库性文章",
-  "index":"https://www.berghahnjournals.com/view/journals/gps/gps-overview.xml",
+  "index":"https://www.tandfonline.com/toc/geui20/current",
   "settings": {
     "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
     "ITEM_PIPELINES":{
@@ -17,28 +17,29 @@
   "start_urls": {
     "case": 21,
      "Kwargs":{
-       "prefix": "https://www.berghahnjournals.com/search?",
+       "prefix": "https://www.tandfonline.com/action/doSearch?",
        "q_params": {
-         "keyword":"q="
+         "keyword":"AllField="
        },
        "langu": "ENGLISH",
-       "blankreplace":"+"
+       "blankreplace":"+",
+       "final_param": "&SeriesKey=geui20"
      },
     "need_process": 0
   },
   "allowed_domains":[
-    "www.berghahnjournals.com"
+    "www.tandfonline.com"
       ],
 
   "timezone":2,
   "language":"ENGLISH",
-  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d","%d %b %Y","%b %Y","%Y年%m月%d日"],
+  "date_formatter":["%d/%m/%Y","%Y","%B %d, %Y","%B %Y","%B %d","%Y","%d %m %Y","%d %B %Y","%d %B","%Y %H:%M","%Y-%m-%d","%d %b %Y","%b %Y"],
 
   "NEED_BLOOM": 1,
   "need_filter_date": 0,
 
   "table": "ERMS_ALL",
-  "rules": "bergha",
+  "rules": "geui",
  "item": {
     "class": "NewsItemV4",
     "loader": "NewsLoaderV4",
@@ -53,22 +54,31 @@
       "description": [
         {
           "method": "xpath",
-          "args": ["//section[@class='abstract']//text()"]
+          "args": ["//div[@class='abstractSection abstractInFull']//text()"]
         }
       ],
 
       "text": [
         {
           "method": "xpath",
-          "args": ["//section[@class='abstract']//text()"]
+          "args": ["//article[@class='article']//div[@class='hlFld-Fulltext']/div[@id]//text()"]
+        }
+      ],
+
+      "author": [
+        {
+          "method": "xpath",
+          "args": [
+            "//a[@class='entryAuthor']/text()"
+          ]
         }
       ],
 
       "dateissued": [
         {
           "method": "xpath",
-          "args": ["//meta[@property='article:modified_time']/@content"],
-           "re":"\\d{4}-\\d{2}-\\d{2}"
+          "args": ["//meta[@name='dc.Date']/@content"],
+           "re":"[a-zA-Z]+ \\d{4}"
       }
       ],
 
@@ -76,7 +86,7 @@
         {
           "method":"value",
           "args": [
-            "German Politics and Society"
+            "Journal of European Integration（JEI）"
           ]
         }
       ],

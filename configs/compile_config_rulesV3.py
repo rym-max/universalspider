@@ -150,7 +150,6 @@ def get_result(name,path):
 
     else:
 
-
         #遍历所有文件
         for ffl in files_li:
             
@@ -196,5 +195,5 @@ def get_result(name,path):
     return result
 
 if __name__ == "__main__":
-    # update("guancha")
-    insert("bergha")
+    update("fwep")
+    # insert("all")

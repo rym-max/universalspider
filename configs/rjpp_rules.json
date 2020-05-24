@@ -1,0 +1,25 @@
+{
+  "item": [
+        {
+            "linkextra":{
+                "allow":"",
+                "deny":"",
+                "restrict_xpath":"//li[@class='search-citation']//div[@class='art_title']//span[@class='hlFld-Title']",
+                "restrict_css":""
+            },
+            "follow":0,
+            "callback":"parse_item"
+        },
+    {
+      "linkextra": {
+        "allow": "/action/doSearch\\?.+",
+        "deny": "",
+        "restrict_xpath": "//li[@class='pageLink-with-arrow']",
+        "restrict_css": ""
+      },
+      "follow": 1,
+      "callback": ""
+    }
+  ]
+
+}
